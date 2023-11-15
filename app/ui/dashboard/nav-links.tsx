@@ -1,7 +1,7 @@
 "use client";
 
-import { Home, Event } from "@mui/icons-material";
-// import { Client } from "@vercel/postgres";
+import Home from "@mui/icons-material/Home";
+import Event from "@mui/icons-material/Event";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";

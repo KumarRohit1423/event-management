@@ -1,6 +1,8 @@
 import Link from "next/link";
 import NavLinks from "@/app/ui/dashboard/nav-links";
-import { LogoDev, Logout } from "@mui/icons-material/";
+import LogoDev from "@mui/icons-material/LogoDev";
+import Logout from "@mui/icons-material/Logout";
+import TitleText from "@/app/ui/dashboard/title-text";
 
 export default function SideNav() {
 	return (
@@ -9,9 +11,9 @@ export default function SideNav() {
 				className="mb-2 flex h-20 items-end justify-start rounded-md bg-purple-500 p-4 md:h-20"
 				href="/"
 			>
-				<div className="w-32 text-white md:w-40 flex">
+				<div className="w-32 text-white md:w-40 flex gap-4">
 					<LogoDev />
-					&nbsp;ORganIZZer
+					<TitleText />
 				</div>
 			</Link>
 			<div className="flex grow flex-row justify-between space-x-2 md:flex-col md:space-x-0 md:space-y-2">
