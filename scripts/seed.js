@@ -64,13 +64,14 @@ async function seedEvents(client) {
   );
 `;
 
-		console.log(`Created "invoices" table`);
+		console.log(`Created "events" table`);
 
 		// Insert data into the "invoices" table
 		const insertedEvents = await Promise.all(
 			_events.map(
 				(_event) => client.sql`
         INSERT INTO _events (
+          id,
           title, 
           description, 
           start_datetime, 
@@ -103,7 +104,7 @@ async function seedEvents(client) {
 			_events: insertedEvents,
 		};
 	} catch (error) {
-		console.error("Error seeding invoices:", error);
+		console.error("Error seeding events:", error);
 		throw error;
 	}
 }
@@ -186,8 +187,8 @@ async function main() {
 	const client = await db.connect();
 
 	await seedUsers(client);
-	await seedCustomers(client);
-	await seedInvoices(client);
+	await seedOrganizers(client);
+	await seedEvents(client);
 	// await seedRevenue(client);
 
 	await client.end();
