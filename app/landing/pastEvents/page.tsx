@@ -23,7 +23,7 @@ export default async function Page({
 					Past Events
 				</h1>
 			</div>
-			<div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
+			<div className="mt-4 flex items-center justify-between gap-2 md:mt-8 max-w-md">
 				<Search placeholder="Search past events..." />
 				{/* <CreateEvent /> */}
 			</div>
