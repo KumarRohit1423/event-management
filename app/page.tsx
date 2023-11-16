@@ -9,8 +9,8 @@ export default async function Page() {
 				<h1 className={`${roboto.className} text-2xl antialiased`}>
 					Main Page
 				</h1>
-				<Link href={"/landing"}>
-					<Button children="Landing" />
+				<Link href="/landing">
+					<Button>Landing</Button>
 				</Link>
 			</div>
 		</main>

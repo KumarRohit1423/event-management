@@ -1,15 +1,10 @@
 "use client";
 
-import { CustomPreviewTextArea } from "@/app/ui/eventInfo/eventDescMD";
 import { OrganizerField } from "@/app/lib/definitions";
 import Link from "next/link";
-import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import { Button } from "@/app/ui/button";
 import { useState, ChangeEvent } from "react";
 import { createEvent } from "@/app/lib/actions";
-import React from "react";
-import SimpleMDE from "react-simplemde-editor";
-import "easymde/dist/easymde.min.css";
 
 export default function Form({
 	organizers,
