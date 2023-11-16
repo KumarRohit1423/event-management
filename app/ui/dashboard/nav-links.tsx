@@ -1,7 +1,9 @@
 "use client";
 
-import Home from "@mui/icons-material/Home";
-import Event from "@mui/icons-material/Event";
+import HomeIcon from "@mui/icons-material/Home";
+import EventAvailableIcon from "@mui/icons-material/EventAvailable";
+import EventOverIcon from "@mui/icons-material/EventBusy";
+import PeopleIcon from "@mui/icons-material/People";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
@@ -11,19 +13,24 @@ import clsx from "clsx";
 const links = [
 	{
 		name: "Home",
-		href: "/dashboard",
-		icon: Home,
+		href: "/landing",
+		icon: HomeIcon,
 	},
 	{
-		name: "Events",
-		href: "/dashboard/events",
-		icon: Event,
+		name: "Upcoming Events",
+		href: "/landing/upcomingEvents",
+		icon: EventAvailableIcon,
 	},
-	// {
-	// 	name: "Customers",
-	// 	href: "/dashboard/customers",
-	// 	icon: UserGroupIcon,
-	// },
+	{
+		name: "Past Events",
+		href: "/landing/pastEvents",
+		icon: EventOverIcon,
+	},
+	{
+		name: "Organizers",
+		href: "/landing/organizers",
+		icon: PeopleIcon,
+	},
 ];
 
 export default function NavLinks() {

@@ -11,9 +11,9 @@ export default function SideNav() {
 				className="mb-2 flex h-20 items-end justify-start rounded-md bg-purple-500 p-4 md:h-20"
 				href="/"
 			>
-				<div className="w-32 text-white md:w-40 flex gap-4">
-					<LogoDev />
+				<div className="w-32 h-10 flex flex-1 items-center justify-between text-white md:w-20 md:h-10 ">
 					<TitleText />
+					<LogoDev className="md:hidden" />
 				</div>
 			</Link>
 			<div className="flex grow flex-row justify-between space-x-2 md:flex-col md:space-x-0 md:space-y-2">
