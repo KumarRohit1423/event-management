@@ -24,8 +24,9 @@ export const formatDateTimeToLocal = (
 	const options_time: Intl.DateTimeFormatOptions = {
 		hour: "numeric",
 		minute: "numeric",
-		second: "numeric",
-		timeZoneName: "short",
+		// second: "numeric",
+		// timeZoneName: "short",
+		hour12: true,
 	};
 
 	// Create an Intl.DateTimeFormat object with the specified locale and options

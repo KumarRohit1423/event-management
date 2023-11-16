@@ -1,8 +1,7 @@
 import Image from "next/image";
-import { UpdateEvent, DeleteEvent } from "@/app/ui/eventInfo/buttons";
 import EventStatus from "@/app/ui/eventInfo/status";
 import { formatDateTimeToLocal } from "@/app/lib/utils";
-import { fetchFilteredEvents } from "@/app/lib/data";
+import { fetchFilteredPastEvents } from "@/app/lib/data";
 
 export default async function EventsTable({
 	query,
@@ -11,7 +10,7 @@ export default async function EventsTable({
 	query: string;
 	currentPage: number;
 }) {
-	const _events = await fetchFilteredEvents(query, currentPage);
+	const _events = await fetchFilteredPastEvents(query, currentPage);
 
 	return (
 		<div className="mt-6 flow-root">
@@ -61,10 +60,6 @@ export default async function EventsTable({
 											}
 										</p>
 									</div>
-									<div className="flex justify-end gap-2">
-										<UpdateEvent id={_event.id} />
-										<DeleteEvent id={_event.id} />
-									</div>
 								</div>
 							</div>
 						))}
@@ -89,9 +84,6 @@ export default async function EventsTable({
 								</th>
 								<th scope="col" className="px-3 py-5 font-medium">
 									Status
-								</th>
-								<th scope="col" className="relative py-3 pl-6 pr-3">
-									<span className="sr-only">Edit</span>
 								</th>
 							</tr>
 						</thead>
@@ -132,12 +124,6 @@ export default async function EventsTable({
 									</td>
 									<td className="whitespace-nowrap px-3 py-3">
 										<EventStatus status={_event.status} />
-									</td>
-									<td className="whitespace-nowrap py-3 pl-6 pr-3">
-										<div className="flex justify-end gap-3">
-											<UpdateEvent id={_event.id} />
-											<DeleteEvent id={_event.id} />
-										</div>
 									</td>
 								</tr>
 							))}

@@ -1,6 +1,6 @@
 import Pagination from "@/app/ui/eventInfo/pagination";
 import Search from "@/app/ui/search";
-// import Table from "@/app/ui/eventInfo/table";
+import Table from "@/app/ui/pastEventInfo/table";
 // import { CreateEvent } from "@/app/ui/eventInfo/buttons";
 import { roboto } from "@/app/ui/fonts";
 import { InvoicesTableSkeleton } from "@/app/ui/skeletons";
@@ -27,12 +27,14 @@ export default async function Page({
 				<Search placeholder="Search past events..." />
 				{/* <CreateEvent /> */}
 			</div>
-			<InvoicesTableSkeleton />
-			{/* <Suspense key={query + currentPage} fallback={<InvoicesTableSkeleton />}>
-        <Table query={query} currentPage={currentPage} />
-      </Suspense> */}
+			<Suspense
+				key={query + currentPage}
+				fallback={<InvoicesTableSkeleton />}
+			>
+				<Table query={query} currentPage={currentPage} />
+			</Suspense>
 			<div className="mt-5 flex w-full justify-center">
-				<Pagination totalPages={2} />
+				{/* <Pagination totalPages={2} /> */}
 				{/* <Pagination totalPages={totalPages} /> */}
 			</div>
 		</div>

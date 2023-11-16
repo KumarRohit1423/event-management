@@ -20,7 +20,7 @@ export default function SideNav() {
 				<NavLinks />
 				<div className="hidden h-auto w-full grow rounded-m md:block"></div>
 				<form>
-					<button className="flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:outline hover:outline-1 hover:bg-purple-100 hover:text-purple-500 md:flex-none md:justify-start md:p-2 md:px-3">
+					<button className="flex h-[48px] grow items-center justify-center gap-2 rounded-2xl bg-gray-50 p-3 text-sm font-medium hover:scale-105 transition-transform ease-in-out duration-200 hover:outline hover:outline-1 hover:bg-purple-100 hover:text-purple-500 md:flex-none md:justify-start md:p-2 md:px-3 shadow-[0_3px_10px_rgb(0,0,0,0.2)] ">
 						<Logout className="w-6" />
 						<div className="hidden md:block">Sign Out</div>
 					</button>

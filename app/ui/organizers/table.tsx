@@ -1,69 +1,80 @@
 import Image from "next/image";
-import { UpdateEvent, DeleteEvent } from "@/app/ui/eventInfo/buttons";
-import EventStatus from "@/app/ui/eventInfo/status";
-import { formatDateTimeToLocal } from "@/app/lib/utils";
-import { fetchFilteredEvents } from "@/app/lib/data";
+import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
+import AutoAwesomeOutlinedIcon from "@mui/icons-material/AutoAwesomeOutlined";
+import IconButton from "@mui/material/IconButton";
+import OrganizerStatus from "@/app/ui/organizers/organizer-status";
+import { fetchFilteredOrganizers } from "@/app/lib/data";
+// import Button from "@mui/material/Button";
+// import { UpdateEvent, DeleteEvent } from "@/app/ui/eventInfo/buttons";
+// import { formatDateTimeToLocal } from "@/app/lib/utils";
+// import Link from "next/link";
 
-export default async function EventsTable({
+export default async function OrganizersTable({
 	query,
-	currentPage,
 }: {
 	query: string;
-	currentPage: number;
 }) {
-	const _events = await fetchFilteredEvents(query, currentPage);
+	const organizers = await fetchFilteredOrganizers(query);
 
 	return (
 		<div className="mt-6 flow-root">
 			<div className="inline-block min-w-full align-middle">
 				<div className="rounded-lg bg-gray-50 p-2 md:pt-0">
 					<div className="md:hidden">
-						{_events?.map((_event) => (
+						{organizers?.map((organizer) => (
 							<div
-								key={_event.id}
+								key={organizer.id}
 								className="mb-2 w-full rounded-md bg-white p-4 shadow-[0_3px_10px_rgb(0,0,0,0.2)]"
 							>
 								<div className="flex items-center justify-between border-b pb-4">
 									<div>
 										<div className="mb-2 flex items-center">
-											{/* <Image
-												src={_event.image_url}
+											<Image
+												src={organizer.image_url}
 												className="mr-2 rounded-full"
 												width={28}
 												height={28}
-												alt={`${_event.name}'s profile picture`}
-											/> */}
-											<p>{_event.title}</p>
+												alt={`${organizer.name}'s profile picture`}
+											/>
+											<p>{organizer.name}</p>
 										</div>
 										<p className="text-sm text-gray-500">
-											{_event.name}
+											{organizer.email}
 										</p>
 									</div>
-									<EventStatus status={_event.status} />
+									<OrganizerStatus
+										status={"total"}
+										eventCount={organizer.total_events}
+									/>
 								</div>
 								<div className="flex w-full items-center justify-between pt-4">
 									<div>
 										<p>
-											{
-												formatDateTimeToLocal(_event.start_datetime)
-													._date
-											}
+											<OrganizerStatus
+												status={"expired"}
+												eventCount={organizer.total_completed}
+											/>
 										</p>
 										<p>
-											{
-												formatDateTimeToLocal(_event.start_datetime)
-													._time
-											}
-											&nbsp;-&nbsp;
-											{
-												formatDateTimeToLocal(_event.end_datetime)
-													._time
-											}
+											<OrganizerStatus
+												status={"upcoming"}
+												eventCount={organizer.total_upcoming}
+											/>
 										</p>
 									</div>
 									<div className="flex justify-end gap-2">
-										<UpdateEvent id={_event.id} />
-										<DeleteEvent id={_event.id} />
+										<IconButton
+											// color="secondary"
+											aria-label="give a supporting star"
+										>
+											<AutoAwesomeOutlinedIcon />
+										</IconButton>
+										<IconButton
+											// color="secondary"
+											aria-label="mail the organizer"
+										>
+											<EmailOutlinedIcon />
+										</IconButton>
 									</div>
 								</div>
 							</div>
@@ -76,19 +87,19 @@ export default async function EventsTable({
 									scope="col"
 									className="px-4 py-5 font-medium sm:pl-6"
 								>
-									Event
-								</th>
-								<th scope="col" className="px-3 py-5 font-medium">
 									Organizer
 								</th>
 								<th scope="col" className="px-3 py-5 font-medium">
-									Date
+									Email
 								</th>
 								<th scope="col" className="px-3 py-5 font-medium">
-									Time
+									Upcoming Events
 								</th>
 								<th scope="col" className="px-3 py-5 font-medium">
-									Status
+									Completed Events
+								</th>
+								<th scope="col" className="px-3 py-5 font-medium">
+									Total Events
 								</th>
 								<th scope="col" className="relative py-3 pl-6 pr-3">
 									<span className="sr-only">Edit</span>
@@ -96,47 +107,58 @@ export default async function EventsTable({
 							</tr>
 						</thead>
 						<tbody className="bg-white">
-							{_events?.map((_event) => (
+							{organizers?.map((organizer) => (
 								<tr
-									key={_event.id}
+									key={organizer.id}
 									className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg"
 								>
 									<td className="whitespace-nowrap py-3 pl-6 pr-3">
 										<div className="flex items-center gap-3">
-											{/* <Image
-												src={_event.image_url}
+											<Image
+												src={organizer.image_url}
 												className="rounded-full"
 												width={28}
 												height={28}
-												alt={`${_event.name}'s profile picture`}
-											/> */}
-											<p>{_event.title}</p>
+												alt={`${organizer.name}'s profile picture`}
+											/>
+											<p>{organizer.name}</p>
 										</div>
 									</td>
 									<td className="whitespace-nowrap px-3 py-3">
-										{_event.name}
+										{organizer.email}
 									</td>
 									<td className="whitespace-nowrap px-3 py-3">
-										{
-											formatDateTimeToLocal(_event.start_datetime)
-												._date
-										}
+										<OrganizerStatus
+											status={"upcoming"}
+											eventCount={organizer.total_upcoming}
+										/>
 									</td>
 									<td className="whitespace-nowrap px-3 py-3">
-										{
-											formatDateTimeToLocal(_event.start_datetime)
-												._time
-										}
-										&nbsp;-&nbsp;
-										{formatDateTimeToLocal(_event.end_datetime)._time}
+										<OrganizerStatus
+											status={"expired"}
+											eventCount={organizer.total_completed}
+										/>
 									</td>
 									<td className="whitespace-nowrap px-3 py-3">
-										<EventStatus status={_event.status} />
+										<OrganizerStatus
+											status={"total"}
+											eventCount={organizer.total_events}
+										/>
 									</td>
 									<td className="whitespace-nowrap py-3 pl-6 pr-3">
 										<div className="flex justify-end gap-3">
-											<UpdateEvent id={_event.id} />
-											<DeleteEvent id={_event.id} />
+											<IconButton
+												color="secondary"
+												aria-label="give a supporting star"
+											>
+												<AutoAwesomeOutlinedIcon />
+											</IconButton>
+											<IconButton
+												color="secondary"
+												aria-label="mail the organizer"
+											>
+												<EmailOutlinedIcon />
+											</IconButton>
 										</div>
 									</td>
 								</tr>

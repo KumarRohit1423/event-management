@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+.gradient-text {
+	background-color: #f3ec78;
+	background-image: linear-gradient(45deg, #f3ec78, #af4261);
+	background-size: 100%;
+	-webkit-text-fill-color: transparent;
+	-moz-text-fill-color: transparent;
+}
+
 input[type="number"] {
 	-moz-appearance: textfield;
 	appearance: textfield;
@@ -15,4 +23,8 @@ input[type="number"]::-webkit-inner-spin-button {
 input[type="number"]::-webkit-outer-spin-button {
 	-webkit-appearance: none;
 	margin: 0;
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+	-webkit-appearance: none;
 }

@@ -94,7 +94,6 @@ import { unstable_noStore as noStore } from "next/cache";
 // 		throw new Error("Failed to card data.");
 // 	}
 // }
-
 const ITEMS_PER_PAGE = 6;
 export async function fetchFilteredEvents(
 	query: string,
@@ -118,12 +117,51 @@ export async function fetchFilteredEvents(
         organizers.image_url
       FROM _events
       JOIN organizers ON _events.organizer_id = organizers.id
-      WHERE
+      WHERE _events.status IN ('upcoming', 'ongoing') AND (
         organizers.name ILIKE ${`%${query}%`} OR
         organizers.email ILIKE ${`%${query}%`} OR
         _events.title ILIKE ${`%${query}%`} OR
-        _events.category ILIKE ${`%${query}%`} OR
-        _events.status ILIKE ${`%${query}%`}
+        _events.category ILIKE ${`%${query}%`}
+        )
+      ORDER BY _events.start_datetime DESC
+      LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
+    `;
+
+		return _events.rows;
+	} catch (error) {
+		console.error("Database Error:", error);
+		throw new Error("Failed to fetch events.");
+	}
+}
+
+export async function fetchFilteredPastEvents(
+	query: string,
+	currentPage: number
+) {
+	const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+	noStore();
+
+	try {
+		const _events = await sql<EventsTable>`
+      SELECT
+        _events.id,
+        _events.title,
+        _events.description,
+        _events.start_datetime,
+        _events.end_datetime,
+        _events.category,
+        _events.status,
+        organizers.name,
+        organizers.email,
+        organizers.image_url
+      FROM _events
+      JOIN organizers ON _events.organizer_id = organizers.id
+      WHERE _events.status = 'expired' AND (
+        organizers.name ILIKE ${`%${query}%`} OR
+        organizers.email ILIKE ${`%${query}%`} OR
+        _events.title ILIKE ${`%${query}%`} OR
+        _events.category ILIKE ${`%${query}%`}
+        )
       ORDER BY _events.start_datetime DESC
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
@@ -214,9 +252,9 @@ export async function fetchFilteredOrganizers(query: string) {
     organizers.email,
     organizers.image_url,
     COUNT(_events.id) AS total_events,
-    COUNT(CASE WHEN _events.status = 'upcoming') AS total_upcoming,
-    COUNT(CASE WHEN _events.status = ('ongoing' | 'paid')) AS total_completed
-    FROM organizers LEFT JOIN _events ON organizers.id = _events.customer_id
+    COUNT(CASE WHEN _events.status = 'upcoming'  THEN 1 END) AS total_upcoming,
+    COUNT(CASE WHEN _events.status IN ('ongoing', 'expired')  THEN 1 END) AS total_completed
+    FROM organizers LEFT JOIN _events ON organizers.id = _events.organizer_id
 		WHERE organizers.name ILIKE ${`%${query}%`} OR organizers.email ILIKE ${`%${query}%`}
 		GROUP BY organizers.id, organizers.name, organizers.email, organizers.image_url
 		ORDER BY organizers.name ASC
@@ -224,14 +262,14 @@ export async function fetchFilteredOrganizers(query: string) {
 
 		const organizers = data.rows.map((organizer) => ({
 			...organizer,
-			total_upcoming: organizer.total_upcoming,
-			total_paid: organizer.total_completed,
+			total_upcoming: organizer.total_upcoming || 0,
+			total_completed: organizer.total_completed || 0,
 		}));
 
 		return organizers;
 	} catch (err) {
 		console.error("Database Error:", err);
-		throw new Error("Failed to fetch customer table.");
+		throw new Error("Failed to fetch organizer table.");
 	}
 }
 
