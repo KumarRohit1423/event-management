@@ -26,6 +26,7 @@ export type Event = {
 	organizer_name: string;
 	category: string;
 	status: "upcoming" | "ongoing" | "expired";
+	event_banner?: File | null;
 };
 
 // export type Revenue = {

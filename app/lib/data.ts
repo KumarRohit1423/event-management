@@ -94,8 +94,8 @@ import { unstable_noStore as noStore } from "next/cache";
 // 		throw new Error("Failed to card data.");
 // 	}
 // }
-const ITEMS_PER_PAGE = 6;
-export async function fetchFilteredEvents(
+const ITEMS_PER_PAGE = 4;
+export async function fetchFilteredActiveEvents(
 	query: string,
 	currentPage: number
 ) {
@@ -123,7 +123,7 @@ export async function fetchFilteredEvents(
         _events.title ILIKE ${`%${query}%`} OR
         _events.category ILIKE ${`%${query}%`}
         )
-      ORDER BY _events.start_datetime DESC
+      ORDER BY _events.start_datetime ASC
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
 
@@ -173,19 +173,18 @@ export async function fetchFilteredPastEvents(
 	}
 }
 
-export async function fetchEventsPages(query: string) {
+export async function fetchPastEventsPages(query: string) {
 	noStore();
 	try {
 		const count = await sql`SELECT COUNT(*)
     FROM _events
-    JOIN organizers ON _events.customer_id = organizers.id
-    WHERE
+    JOIN organizers ON _events.organizer_id = organizers.id
+    WHERE _events.status = 'expired' AND (
       organizers.name ILIKE ${`%${query}%`} OR
       organizers.email ILIKE ${`%${query}%`} OR
       _events.title ILIKE ${`%${query}%`} OR
-      _events.organizer_name ILIKE ${`%${query}%`} OR
-      _events.category ILIKE ${`%${query}%`} OR
-      _events.status ILIKE ${`%${query}%`}
+      _events.category ILIKE ${`%${query}%`}
+      )
   `;
 
 		const totalPages = Math.ceil(
@@ -194,34 +193,58 @@ export async function fetchEventsPages(query: string) {
 		return totalPages;
 	} catch (error) {
 		console.error("Database Error:", error);
-		throw new Error("Failed to fetch total number of events.");
+		throw new Error(
+			"Failed to fetch total number of expired events."
+		);
 	}
 }
 
-// export async function fetchEventById(id: string) {
-//   noStore();
-//   try {
-//     const data = await sql<EventForm>`
-//       SELECT
-//         _events.id,
-//         _events.organizer_id,
-//         _events.title,
-//         _events.status
-//       FROM _events
-//       WHERE _events.id = ${id};
-//     `;
+export async function fetchActiveEventsPages(query: string) {
+	noStore();
+	try {
+		const count = await sql`SELECT COUNT(*)
+    FROM _events
+    JOIN organizers ON _events.organizer_id = organizers.id
+    WHERE _events.status IN ('upcoming', 'ongoing') AND (
+      organizers.name ILIKE ${`%${query}%`} OR
+      organizers.email ILIKE ${`%${query}%`} OR
+      _events.title ILIKE ${`%${query}%`} OR
+      _events.category ILIKE ${`%${query}%`}
+      )
+  `;
 
-//     const _event = data.rows.map((_event) => ({
-//       ..._event,
-//       // Convert amount from cents to dollars
-//       amount: _event.amount / 100,
-//     }));
+		const totalPages = Math.ceil(
+			Number(count.rows[0].count) / ITEMS_PER_PAGE
+		);
+		return totalPages;
+	} catch (error) {
+		console.error("Database Error:", error);
+		throw new Error("Failed to fetch total number of active events.");
+	}
+}
 
-//     return invoice[0];
-//   } catch (error) {
-//     console.error("Database Error:", error);
-//   }
-// }
+export async function fetchEventById(id: string) {
+	noStore();
+	try {
+		const data = await sql<EventForm>`
+      SELECT
+        _events.id,
+        _events.organizer_id,
+        _events.title,
+        _events.status
+      FROM _events
+      WHERE _events.id = ${id};
+    `;
+
+		const _event = data.rows.map((_event) => ({
+			..._event,
+		}));
+
+		return _event[0];
+	} catch (error) {
+		console.error("Database Error:", error);
+	}
+}
 
 export async function fetchOrganizers() {
 	noStore();
@@ -234,11 +257,11 @@ export async function fetchOrganizers() {
       ORDER BY name ASC
     `;
 
-		const customers = data.rows;
-		return customers;
+		const organizers = data.rows;
+		return organizers;
 	} catch (err) {
 		console.error("Database Error:", err);
-		throw new Error("Failed to fetch all customers.");
+		throw new Error("Failed to fetch all organizers.");
 	}
 }
 

@@ -19,6 +19,7 @@ export default function Search({
 
 	const handleSearch = useDebouncedCallback((term) => {
 		const params = new URLSearchParams(searchParams);
+		params.set("page", "1");
 		if (term) {
 			params.set("query", term);
 		} else {
@@ -28,13 +29,13 @@ export default function Search({
 	}, 300);
 
 	return (
-		<div className="relative flex flex-1 flex-shrink-0 outline-purple-100 focus:outline-purple-500">
+		<div className="relative flex flex-1 flex-shrink-0 max-w-md">
 			<label htmlFor="search" className="sr-only">
 				Search
 			</label>
 			<input
 				type="search"
-				className="peer block w-full rounded-3xl border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
+				className="peer block w-full rounded-3xl border py-[9px] pl-10 text-sm outline-1 outline-purple-500 placeholder:text-gray-500"
 				placeholder={placeholder}
 				onChange={(e) => {
 					handleSearch(e.target.value);

@@ -1,7 +1,7 @@
 import Pagination from "@/app/ui/eventInfo/pagination";
 import Search from "@/app/ui/search";
 import Table from "@/app/ui/organizers/table";
-import { roboto } from "@/app/ui/fonts";
+import { roboto, inter } from "@/app/ui/fonts";
 import { TableRowSkeleton } from "@/app/ui/skeletons";
 import { Suspense } from "react";
 
@@ -19,7 +19,7 @@ export default async function Page({
 		<div className="w-full">
 			<div className="flex w-full items-baseline gap-4">
 				<h1
-					className={`${roboto.className} text-2xl md:text-2xl antialiased`}
+					className={`${inter.className} text-2xl md:text-2xl antialiased`}
 				>
 					Organizers
 				</h1>

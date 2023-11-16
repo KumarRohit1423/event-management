@@ -2,7 +2,7 @@ import Image from "next/image";
 import { UpdateEvent, DeleteEvent } from "@/app/ui/eventInfo/buttons";
 import EventStatus from "@/app/ui/eventInfo/status";
 import { formatDateTimeToLocal } from "@/app/lib/utils";
-import { fetchFilteredEvents } from "@/app/lib/data";
+import { fetchFilteredActiveEvents } from "@/app/lib/data";
 
 export default async function EventsTable({
 	query,
@@ -11,7 +11,7 @@ export default async function EventsTable({
 	query: string;
 	currentPage: number;
 }) {
-	const _events = await fetchFilteredEvents(query, currentPage);
+	const _events = await fetchFilteredActiveEvents(query, currentPage);
 
 	return (
 		<div className="mt-6 flow-root">

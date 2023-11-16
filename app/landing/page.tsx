@@ -1,13 +1,9 @@
-import { roboto } from "@/app/ui/fonts";
+import { inter } from "@/app/ui/fonts";
 
-export default async function Page() {
+export default function Page() {
 	return (
-		<main>
-			<h1
-				className={`${roboto.className} text-2xl md:text-2xl antialiased`}
-			>
-				Dashboard
-			</h1>
-		</main>
+		<h1 className={`${inter.className} text-xl antialiased`}>
+			Dashboard
+		</h1>
 	);
 }
