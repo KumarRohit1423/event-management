@@ -4,7 +4,6 @@ import Table from "@/app/ui/organizers/table";
 import { roboto } from "@/app/ui/fonts";
 import { TableRowSkeleton } from "@/app/ui/skeletons";
 import { Suspense } from "react";
-import { TableBar } from "@mui/icons-material";
 
 export default async function Page({
 	searchParams,
@@ -30,7 +29,7 @@ export default async function Page({
 					[ the people behind all the grandeurs ]
 				</p>
 			</div>
-			<div className="mt-4 md:mt-8 w-2/5">
+			<div className="mt-4 md:mt-8 max-w-md">
 				<Search placeholder="Find your favorite organizer..." />
 				{/* <CreateEvent /> */}
 			</div>

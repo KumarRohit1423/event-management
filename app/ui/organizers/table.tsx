@@ -48,19 +48,15 @@ export default async function OrganizersTable({
 									/>
 								</div>
 								<div className="flex w-full items-center justify-between pt-4">
-									<div>
-										<p>
-											<OrganizerStatus
-												status={"expired"}
-												eventCount={organizer.total_completed}
-											/>
-										</p>
-										<p>
-											<OrganizerStatus
-												status={"upcoming"}
-												eventCount={organizer.total_upcoming}
-											/>
-										</p>
+									<div className="flex gap-4">
+										<OrganizerStatus
+											status={"expired"}
+											eventCount={organizer.total_completed}
+										/>
+										<OrganizerStatus
+											status={"upcoming"}
+											eventCount={organizer.total_upcoming}
+										/>
 									</div>
 									<div className="flex justify-end gap-2">
 										<IconButton
