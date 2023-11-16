@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Button } from "@/app/ui/button";
 import { useState, ChangeEvent } from "react";
 import { createEvent } from "@/app/lib/actions";
+import Image from "next/image";
 
 export default function Form({
 	organizers,
@@ -156,10 +157,12 @@ export default function Form({
 						<label className="mb-2 block text-sm font-medium">
 							Event Banner Preview
 						</label>
-						<img
+						<Image
 							src={imagePreview}
 							alt="Event Banner Preview"
 							className="max-w-sm rounded-md border border-gray-200"
+							width={300}
+							height={200}
 						/>
 					</div>
 				)}
