@@ -5,6 +5,7 @@ import { sql } from "@vercel/postgres";
 import { v4 as uuidv4 } from "uuid";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { signIn } from "@/auth";
 
 const EventSchema = z.object({
 	id: z.string(),
@@ -32,6 +33,20 @@ const UpdateEvent = EventSchema.omit({
 	organizer_name: true,
 	status: true,
 });
+
+export async function authenticate(
+	prevState: string | undefined,
+	formData: FormData
+) {
+	try {
+		await signIn("credentials", Object.fromEntries(formData));
+	} catch (error) {
+		if ((error as Error).message.includes("CredentialsSignin")) {
+			return "CredentialsSignin";
+		}
+		throw error;
+	}
+}
 
 const organizer_id = "3958dc9e-737f-4377-85e9-fec4b6a6442a";
 const organizer_name = "Maki Zenin";

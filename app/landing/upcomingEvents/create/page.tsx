@@ -1,9 +1,9 @@
 import Form from "@/app/ui/eventInfo/create-form";
 import Breadcrumbs from "@/app/ui/eventInfo/breadcrumbs";
-import { fetchOrganizers } from "@/app/lib/data";
+// import { fetchOrganizers } from "@/app/lib/data";
 
 export default async function Page() {
-	const organizers = await fetchOrganizers();
+	// const organizers = await fetchOrganizers();
 
 	return (
 		<main>
