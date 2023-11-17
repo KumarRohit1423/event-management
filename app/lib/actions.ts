@@ -31,7 +31,6 @@ const UpdateEvent = EventSchema.omit({
 	id: true,
 	organizer_id: true,
 	organizer_name: true,
-	status: true,
 });
 
 export async function authenticate(
@@ -93,10 +92,9 @@ export async function createEvent(formData: FormData) {
 
 export async function updateEvent(id: string, formData: FormData) {
 	const rawFormData = Object.fromEntries(formData.entries());
-	const validatedFormData = CreateEvent.parse(rawFormData);
+	const validatedFormData = UpdateEvent.parse(rawFormData);
 	const start_datetime = `${validatedFormData.date}T${validatedFormData.start_time}:00Z`;
 	const end_datetime = `${validatedFormData.date}T${validatedFormData.end_time}:00Z`;
-	const status = "upcoming";
 	try {
 		await sql`
 	  UPDATE _events
@@ -106,7 +104,7 @@ export async function updateEvent(id: string, formData: FormData) {
       start_datetime = ${start_datetime},
 	    end_datetime = ${end_datetime},
 	    category = ${validatedFormData.category},
-	    status = ${status}
+	    status = ${validatedFormData.status}
     WHERE id = ${id}
 	`;
 	} catch (error) {

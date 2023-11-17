@@ -24,7 +24,12 @@ export type Event = {
 	end_datetime: string;
 	organizer_id: string;
 	organizer_name: string;
-	category: string;
+	category:
+		| "academic"
+		| "cultural"
+		| "technology"
+		| "social"
+		| "sports";
 	status: "upcoming" | "ongoing" | "expired";
 	event_banner?: object;
 };
@@ -34,13 +39,20 @@ export type Event = {
 //   revenue: number;
 // };
 
-// export type LatestInvoice = {
-//   id: string;
-//   name: string;
-//   image_url: string;
-//   email: string;
-//   amount: string;
-// };
+export type LatestEvent = {
+	id: string;
+	title: string;
+	description: string;
+	start_datetime: string;
+	organizer_name: string;
+	category:
+		| "academic"
+		| "cultural"
+		| "technology"
+		| "social"
+		| "sports";
+	status: "upcoming" | "ongoing" | "expired";
+};
 
 // // The database returns a number for amount, but we later format it to a string with the formatCurrency function
 // export type LatestInvoiceRaw = Omit<LatestInvoice, 'amount'> & {
@@ -53,7 +65,12 @@ export type EventsTable = {
 	description: number;
 	start_datetime: string;
 	end_datetime: string;
-	category: string;
+	category:
+		| "academic"
+		| "cultural"
+		| "technology"
+		| "social"
+		| "sports";
 	status: "upcoming" | "ongoing" | "expired";
 	name: string;
 	email: string;
@@ -89,5 +106,10 @@ export type EventForm = {
 	description: string;
 	start_datetime: string;
 	end_datetime: string;
-	category: string;
+	category:
+		| "academic"
+		| "cultural"
+		| "technology"
+		| "social"
+		| "sports";
 };

@@ -123,14 +123,21 @@ export default function Form(/*{
 					>
 						Event Category
 					</label>
-					<input
-						type="text"
+					<select
 						id="category"
 						name="category"
 						required
 						className="peer block w-full rounded-md border border-gray-200 py-2 pl-3 text-sm outline-2 placeholder:text-gray-500"
-						placeholder="Enter Event Category"
-					/>
+					>
+						<option value="" disabled selected>
+							Select Event Category
+						</option>
+						<option value="academic">Academic</option>
+						<option value="cultural">Cultural</option>
+						<option value="social">Social</option>
+						<option value="technology">Technology</option>
+						<option value="sports">Sports</option>
+					</select>
 				</div>
 
 				{/* Image Picker */}
