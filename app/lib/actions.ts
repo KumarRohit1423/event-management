@@ -43,8 +43,8 @@ export async function createEvent(formData: FormData) {
 	const start_datetime = `${validatedFormData.date}T${validatedFormData.start_time}:00Z`;
 	const end_datetime = `${validatedFormData.date}T${validatedFormData.end_time}:00Z`;
 	const status = "upcoming";
-	await sql`
-	  INSERT INTO _events (
+	try {
+		await sql`INSERT INTO _events (
 	    id,
 	    title,
 	    description,
@@ -67,6 +67,11 @@ export async function createEvent(formData: FormData) {
 	    ${status}
 	    )
 	`;
+	} catch (error) {
+		return {
+			message: "Database Error: Failed to Create Event.",
+		};
+	}
 	revalidatePath("/landing/upcomingEvents");
 	redirect("/landing/upcomingEvents");
 }
@@ -77,7 +82,8 @@ export async function updateEvent(id: string, formData: FormData) {
 	const start_datetime = `${validatedFormData.date}T${validatedFormData.start_time}:00Z`;
 	const end_datetime = `${validatedFormData.date}T${validatedFormData.end_time}:00Z`;
 	const status = "upcoming";
-	await sql`
+	try {
+		await sql`
 	  UPDATE _events
     SET
 	    title = ${validatedFormData.title},
@@ -88,11 +94,19 @@ export async function updateEvent(id: string, formData: FormData) {
 	    status = ${status}
     WHERE id = ${id}
 	`;
+	} catch (error) {
+		return { message: "Database Error: Failed to Update Event." };
+	}
 	revalidatePath("/landing/upcomingEvents");
 	redirect("/landing/upcomingEvents");
 }
 
 export async function deleteEvent(id: string) {
-	await sql`DELETE FROM _events WHERE id = ${id}`;
-	revalidatePath("/landing/upcomingEvents");
+	try {
+		await sql`DELETE FROM _events WHERE id = ${id}`;
+		revalidatePath("/landing/upcomingEvents");
+		return { message: "Deleted Event." };
+	} catch (error) {
+		return { message: "Database Error: Failed to Delete Event." };
+	}
 }

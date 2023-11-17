@@ -241,7 +241,7 @@ export async function fetchEventById(id: string) {
 		const _event = data.rows.map((_event) => ({
 			..._event,
 		}));
-
+		console.log(_event);
 		return _event[0];
 	} catch (error) {
 		console.error("Database Error:", error);
