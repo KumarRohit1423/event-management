@@ -33,13 +33,13 @@ export default function Card({
 	status: "upcoming" | "ongoing" | "expired";
 }) {
 	return (
-		<div className="w-[400px] rounded-2xl border">
+		<div className="max-w-sm rounded-2xl border">
 			<Image
 				className="rounded-3xl p-4"
 				src={academic}
 				alt="academic-banner"
-				width={400}
-				height={300}
+				// width={400}
+				// height={300}
 			/>
 			<div className="flex p-4 flex-col justify-between">
 				<h1 className="inline-flex items-center text-lg font-semibold">
