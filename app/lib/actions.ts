@@ -1,6 +1,10 @@
 "use server";
 
 import { z } from "zod";
+import { sql } from "@vercel/postgres";
+import { v4 as uuidv4 } from "uuid";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 const EventSchema = z.object({
 	id: z.string(),
@@ -13,7 +17,6 @@ const EventSchema = z.object({
 	organizer_name: z.string(),
 	category: z.string(),
 	status: z.enum(["upcoming", "ongoing", "expired"]),
-	event_banner: z.union([z.instanceof(File), z.null()]).optional(),
 });
 
 const CreateEvent = EventSchema.omit({
@@ -23,10 +26,73 @@ const CreateEvent = EventSchema.omit({
 	status: true,
 });
 
+const UpdateEvent = EventSchema.omit({
+	id: true,
+	organizer_id: true,
+	organizer_name: true,
+	status: true,
+});
+
+const organizer_id = "3958dc9e-737f-4377-85e9-fec4b6a6442a";
+const organizer_name = "Maki Zenin";
+
 export async function createEvent(formData: FormData) {
-	const rawFormData = CreateEvent.parse(
-		Object.fromEntries(formData.entries())
-	);
-	// Test it out:
-	console.log(rawFormData);
+	const rawFormData = Object.fromEntries(formData.entries());
+	const validatedFormData = CreateEvent.parse(rawFormData);
+	const id = uuidv4();
+	const start_datetime = `${validatedFormData.date}T${validatedFormData.start_time}:00Z`;
+	const end_datetime = `${validatedFormData.date}T${validatedFormData.end_time}:00Z`;
+	const status = "upcoming";
+	await sql`
+	  INSERT INTO _events (
+	    id,
+	    title,
+	    description,
+	    start_datetime,
+	    end_datetime,
+	    organizer_id,
+	    organizer_name,
+	    category,
+	    status
+	    )
+	  VALUES (
+	    ${id},
+	    ${validatedFormData.title},
+	    ${validatedFormData.description},
+	    ${start_datetime},
+	    ${end_datetime},
+	    ${organizer_id},
+	    ${organizer_name},
+	    ${validatedFormData.category},
+	    ${status}
+	    )
+	`;
+	revalidatePath("/landing/upcomingEvents");
+	redirect("/landing/upcomingEvents");
+}
+
+export async function updateEvent(id: string, formData: FormData) {
+	const rawFormData = Object.fromEntries(formData.entries());
+	const validatedFormData = CreateEvent.parse(rawFormData);
+	const start_datetime = `${validatedFormData.date}T${validatedFormData.start_time}:00Z`;
+	const end_datetime = `${validatedFormData.date}T${validatedFormData.end_time}:00Z`;
+	const status = "upcoming";
+	await sql`
+	  UPDATE _events
+    SET
+	    title = ${validatedFormData.title},
+	    description = ${validatedFormData.description},
+      start_datetime = ${start_datetime},
+	    end_datetime = ${end_datetime},
+	    category = ${validatedFormData.category},
+	    status = ${status}
+    WHERE id = ${id}
+	`;
+	revalidatePath("/landing/upcomingEvents");
+	redirect("/landing/upcomingEvents");
+}
+
+export async function deleteEvent(id: string) {
+	await sql`DELETE FROM _events WHERE id = ${id}`;
+	revalidatePath("/landing/upcomingEvents");
 }

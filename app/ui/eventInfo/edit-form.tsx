@@ -1,34 +1,28 @@
 "use client";
 
-import { OrganizerField } from "@/app/lib/definitions";
+import { splitISO8601DateTime } from "@/app/lib/utils";
+import { /*OrganizerField,*/ EventForm } from "@/app/lib/definitions";
 import Link from "next/link";
 import { Button } from "@/app/ui/button";
+import { updateEvent } from "@/app/lib/actions";
 // import { useState, ChangeEvent } from "react";
-import { createEvent } from "@/app/lib/actions";
 // import Image from "next/image";
 
-export default function Form(/*{
-	organizers,
-}: {
-	organizers: OrganizerField[];
-}*/) {
-	// const [imagePreview, setImagePreview] = useState<string | null>(
-	// 	null
-	// );
+export default function Form({
+	_event,
+}: // organizers,
+{
+	_event: EventForm;
+	// organizers: OrganizerField[];
+}) {
+	const eventDate = splitISO8601DateTime(_event.start_datetime).date;
+	const startTime = splitISO8601DateTime(_event.start_datetime).time;
+	const endTime = splitISO8601DateTime(_event.end_datetime).time;
 
-	// const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-	// 	const file = e.target.files?.[0];
-	// 	if (file) {
-	// 		const reader = new FileReader();
-	// 		reader.onloadend = () => {
-	// 			setImagePreview(reader.result as string);
-	// 		};
-	// 		reader.readAsDataURL(file);
-	// 	}
-	// };
+	const updateEventWithId = updateEvent.bind(null, _event.id);
 
 	return (
-		<form action={createEvent}>
+		<form action={updateEventWithId}>
 			<div className="rounded-md bg-gray-50 p-4 md:p-6">
 				{/* Event Title */}
 				<div className="mb-4">
@@ -45,6 +39,7 @@ export default function Form(/*{
 						required
 						className="peer block w-full rounded-md border border-gray-200 py-2 pl-3 text-sm outline-2 placeholder:text-gray-500"
 						placeholder="Enter Event Title"
+						defaultValue={_event.title}
 					/>
 				</div>
 
@@ -61,6 +56,7 @@ export default function Form(/*{
 						name="description"
 						className="peer block w-full rounded border border-gray-200 py-2 px-3 text-sm outline-2 placeholder:text-gray-500"
 						placeholder="Enter Event Description"
+						defaultValue={_event.description}
 					/>
 				</div>
 
@@ -77,6 +73,7 @@ export default function Form(/*{
 						id="date"
 						name="date"
 						required
+						defaultValue={eventDate}
 						className="peer block w-full rounded-md border border-gray-200 py-2 pl-3 text-sm outline-2 placeholder:text-gray-500"
 					/>
 				</div>
@@ -94,6 +91,7 @@ export default function Form(/*{
 						id="start_time"
 						name="start_time"
 						required
+						defaultValue={startTime}
 						className="peer block w-full rounded-md border border-gray-200 py-2 pl-3 text-sm outline-2 placeholder:text-gray-500"
 					/>
 				</div>
@@ -111,6 +109,7 @@ export default function Form(/*{
 						id="end_time"
 						name="end_time"
 						required
+						defaultValue={endTime}
 						className="peer block w-full rounded-md border border-gray-200 py-2 pl-3 text-sm outline-2 placeholder:text-gray-500"
 					/>
 				</div>
@@ -130,41 +129,9 @@ export default function Form(/*{
 						required
 						className="peer block w-full rounded-md border border-gray-200 py-2 pl-3 text-sm outline-2 placeholder:text-gray-500"
 						placeholder="Enter Event Category"
+						defaultValue={_event.category}
 					/>
 				</div>
-
-				{/* Image Picker */}
-				{/* <div className="mb-4">
-					<label
-						htmlFor="event_banner"
-						className="mb-2 block text-sm font-medium"
-					>
-						Event Banner (Upload Image)
-					</label>
-					<input
-						type="file"
-						id="event_banner"
-						name="event_banner"
-						accept="image/*" // Allows only image files
-						onChange={handleImageChange}
-						className="peer block w-full rounded-md border border-gray-200 py-2 pl-3 text-sm outline-2 placeholder:text-gray-500"
-					/>
-				</div> */}
-				{/* Image Preview */}
-				{/* {imagePreview && (
-					<div className="mb-4">
-						<label className="mb-2 block text-sm font-medium">
-							Event Banner Preview
-						</label>
-						<Image
-							src={imagePreview}
-							alt="Event Banner Preview"
-							className="max-w-sm rounded-md border border-gray-200"
-							width={300}
-							height={200}
-						/>
-					</div>
-				)} */}
 			</div>
 			<div className="mt-6 flex justify-end gap-4">
 				<Link
@@ -173,7 +140,7 @@ export default function Form(/*{
 				>
 					Cancel
 				</Link>
-				<Button type="submit">Create Event</Button>
+				<Button type="submit">Modify Event</Button>
 			</div>
 		</form>
 	);

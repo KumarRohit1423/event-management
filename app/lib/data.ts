@@ -229,9 +229,11 @@ export async function fetchEventById(id: string) {
 		const data = await sql<EventForm>`
       SELECT
         _events.id,
-        _events.organizer_id,
         _events.title,
-        _events.status
+        _events.description,
+        _events.start_datetime,
+        _events.end_datetime,
+        _events.category
       FROM _events
       WHERE _events.id = ${id};
     `;

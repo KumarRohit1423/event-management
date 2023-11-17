@@ -26,7 +26,7 @@ export type Event = {
 	organizer_name: string;
 	category: string;
 	status: "upcoming" | "ongoing" | "expired";
-	event_banner?: File | null;
+	event_banner?: object;
 };
 
 // export type Revenue = {
@@ -85,7 +85,9 @@ export type OrganizerField = {
 
 export type EventForm = {
 	id: string;
-	organizer_id: string;
 	title: string;
-	status: "upcoming" | "ongoing" | "expired";
+	description: string;
+	start_datetime: string;
+	end_datetime: string;
+	category: string;
 };

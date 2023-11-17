@@ -9,7 +9,7 @@
 
 export const formatDateTimeToLocal = (
 	dateStr: string,
-	locale: string = "en-US"
+	locale: string = "en-IN"
 ) => {
 	// Create a Date object from the input date string
 	const date = new Date(dateStr);
@@ -44,6 +44,22 @@ export const formatDateTimeToLocal = (
 		_time: formatter_time.format(date),
 	};
 	return date_time;
+};
+
+export const splitISO8601DateTime = (dateTimeString: string) => {
+	const dateObject = new Date(dateTimeString);
+	// Extracting date
+	const year = dateObject.getFullYear();
+	const month = `0${dateObject.getMonth() + 1}`.slice(-2); // Adding 1 because getMonth() returns zero-based index
+	const day = `0${dateObject.getDate()}`.slice(-2);
+	const date = `${year}-${month}-${day}`;
+	// Extracting time
+	const hours = `0${dateObject.getHours()}`.slice(-2);
+	const minutes = `0${dateObject.getMinutes()}`.slice(-2);
+	// const seconds = `0${dateObject.getSeconds()}`.slice(-2);
+	const time = `${hours}:${minutes}`;
+
+	return { date, time };
 };
 
 // export const generateYAxis = (revenue: Revenue[]) => {
