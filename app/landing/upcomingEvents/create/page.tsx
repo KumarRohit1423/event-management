@@ -17,7 +17,7 @@ export default async function Page() {
 					},
 				]}
 			/>
-			<Form organizers={organizers} />
+			<Form /*organizers={organizers}*/ />
 		</main>
 	);
 }
