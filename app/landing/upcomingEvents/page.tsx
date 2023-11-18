@@ -6,6 +6,7 @@ import { roboto } from "@/app/ui/fonts";
 import { EventsTableSkeleton } from "@/app/ui/skeletons";
 import { fetchActiveEventsPages } from "@/app/lib/data";
 import { Suspense } from "react";
+import getSessionHandler from "next-auth";
 
 export default async function Page({
 	searchParams,
@@ -37,7 +38,6 @@ export default async function Page({
 				<Table query={query} currentPage={currentPage} />
 			</Suspense>
 			<div className="mt-5 flex w-full justify-center">
-				{/* <Pagination totalPages={2} /> */}
 				<Pagination totalPages={totalPages} />
 			</div>
 		</div>

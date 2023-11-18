@@ -12,7 +12,7 @@ import { authenticate } from "@/app/lib/actions";
 export default function LoginForm() {
 	const [state, dispatch] = useFormState(authenticate, undefined);
 	return (
-		<form action={dispatch} className="space-y-3">
+		<form action={dispatch} className="">
 			<div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
 				<h1 className={`${roboto.className} mb-3 text-2xl`}>
 					Please log in to continue.
@@ -58,10 +58,39 @@ export default function LoginForm() {
 						</div>
 					</div>
 				</div>
-				<LoginButton />
-				<div className="flex h-8 items-end space-x-1">
-					{/* Add form errors here */}
+				<div className="mt-4">
+					<label className="block text-xs font-medium text-gray-900 mb-2">
+						Role
+					</label>
+					<div className="flex items-center space-x-4">
+						<label htmlFor="user" className="flex items-center">
+							<input
+								type="radio"
+								id="user"
+								name="role"
+								value="user"
+								className="mr-1"
+								// Add required attributes or any other necessary properties
+							/>
+							User
+						</label>
+						<label htmlFor="organizer" className="flex items-center">
+							<input
+								type="radio"
+								id="organizer"
+								name="role"
+								value="organizer"
+								className="mr-1"
+								// Add required attributes or any other necessary properties
+							/>
+							Organizer
+						</label>
+					</div>
 				</div>
+				<LoginButton />
+				{/* <div className="flex h-4 items-end space-x-1"> */}
+				{/* Add form errors here */}
+				{/* </div> */}
 				<div
 					className="flex h-8 items-end space-x-1"
 					aria-live="polite"
@@ -85,11 +114,11 @@ function LoginButton() {
 	const { pending } = useFormStatus();
 	return (
 		<Button
-			className="mt-4 hover:text-purple-500"
+			className="mt-8 w-full hover:bg-purple-300 hover:text-purple-900 flex justify-center"
 			aria-disabled={pending}
 		>
-			Log in
-			<DoubleArrowIcon className="ml-auto h-5 w-5 text-gray-50 hover:text-purple-500" />
+			Login
+			<DoubleArrowIcon className="ml-auto h-5 w-5 text-gray-50" />
 		</Button>
 	);
 }

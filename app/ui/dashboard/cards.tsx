@@ -4,13 +4,44 @@ import Image from "next/image";
 import { Button } from "@/app/ui/button";
 import Link from "next/link";
 import { title } from "process";
-import academic from "@/public/eventCategory/academic-event.gif";
-import technology from "@/public/eventCategory/technology-event.gif";
-import cultural from "@/public/eventCategory/cultural-event.gif";
-import social from "@/public/eventCategory/social-event.gif";
-import sports from "@/public/eventCategory/sports-event.gif";
+import AcademicGif from "@/public/eventCategory/academic-event.gif";
+import TechnologyGif from "@/public/eventCategory/technology-event.gif";
+import CulturalGif from "@/public/eventCategory/cultural-event.gif";
+import SocialGif from "@/public/eventCategory/social-event.gif";
+import SportsGif from "@/public/eventCategory/sports-event.gif";
+import { fetchLatestEvents } from "@/app/lib/data";
 
-export default function Card({
+const eventBannerMap = {
+	academic: AcademicGif,
+	cultural: CulturalGif,
+	technology: TechnologyGif,
+	social: SocialGif,
+	sports: SportsGif,
+};
+
+export default async function CardWrapper() {
+	const latestEvents = await fetchLatestEvents();
+	return (
+		<>
+			{latestEvents.map((event) => {
+				return (
+					<Card
+						key={event.id}
+						id={event.id}
+						title={event.title}
+						description={event.description}
+						date={event.date}
+						organizer={event.organizer_name}
+						category={event.category}
+						status={event.status}
+					/>
+				);
+			})}
+		</>
+	);
+}
+
+export function Card({
 	id,
 	title,
 	description,
@@ -32,11 +63,12 @@ export default function Card({
 		| "sports";
 	status: "upcoming" | "ongoing" | "expired";
 }) {
+	const EventGif = eventBannerMap[category];
 	return (
 		<div className="max-w-sm rounded-2xl border">
 			<Image
-				className="rounded-3xl p-4"
-				src={academic}
+				className="rounded-3xl p-4 shadow-inner"
+				src={EventGif}
 				alt="academic-banner"
 				// width={400}
 				// height={300}
@@ -60,9 +92,7 @@ export default function Card({
 					</span>
 				</div>
 				<Link href={`/upcomingEvents/${id}/view-event`}>
-					<Button type="button" data-ripple-dark="true">
-						Learn More
-					</Button>
+					<Button data-ripple-dark="true">Learn More</Button>
 				</Link>
 			</div>
 		</div>

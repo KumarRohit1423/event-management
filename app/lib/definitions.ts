@@ -7,6 +7,7 @@ export type User = {
 	name: string;
 	email: string;
 	password: string;
+	role: "user";
 };
 
 export type Organizer = {
@@ -14,6 +15,7 @@ export type Organizer = {
 	name: string;
 	email: string;
 	image_url: string;
+	role: "organizer";
 };
 
 export type Event = {
