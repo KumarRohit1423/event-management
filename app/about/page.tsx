@@ -27,8 +27,8 @@ const locations = [
 	},
 ];
 
-export default async function Page({ query }: { query: string }) {
-	const users = await fetchFilteredOrganizers(query);
+export default async function Page() {
+	const users = await fetchFilteredOrganizers("");
 	return (
 		<>
 			<header className="relative w-full border-b bg-white pb-4">
@@ -63,7 +63,7 @@ export default async function Page({ query }: { query: string }) {
 					</p>
 				</div>
 				<div className="w-full space-y-4">
-					<img
+					<Image
 						className="h-[200px] w-full rounded-xl object-cover md:h-full"
 						src="https://dev-ui-image-assets.s3.ap-south-1.amazonaws.com/google-map.jpg"
 						alt=""
@@ -151,7 +151,7 @@ export default async function Page({ query }: { query: string }) {
 						</button>
 					</div>
 					<div className="md:mt-o mt-10 w-full">
-						<img
+						<Image
 							src="https://images.unsplash.com/photo-1605165566807-508fb529cf3e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80"
 							alt="Getting Started"
 							className="rounded-lg"
