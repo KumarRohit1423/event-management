@@ -13,7 +13,6 @@ export default async function Page() {
 						<h2 className="text-2xl font-bold text-gray-900 md:text-3xl">
 							Manage Events the new way...
 						</h2>
-
 						<p className=" text-gray-500  md:mt-4 md:block">
 							Welcome to our event management platform, where
 							memorable experiences come to life! Discover a seamless
