@@ -59,7 +59,7 @@ const organizers = [
 		image_url: "/organizers/gojo-satoru.png",
 	},
 	{
-		id: "3958dc9e-737f-4377-85e9-fec4b6a6442a",
+		id: "+",
 		name: "Maki Zenin",
 		email: "zenin@maki.com",
 		image_url: "/organizers/maki-zenin.png",

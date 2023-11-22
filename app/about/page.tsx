@@ -5,6 +5,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import Image from "next/image";
 import GoogleMap from "@/public/about/google-map.jpg";
 import GetStarted from "@/public/about/get-start.avif";
+import Link from "next/link";
 
 const locations = [
 	{
@@ -39,9 +40,11 @@ export default async function Page() {
 						</span>
 						<span className="font-bold">Organizzer</span>
 					</div>
-					<div className="hidden lg:block">
-						<Button>Login</Button>
-					</div>
+					<Link href={"/login"}>
+						<div className="hidden lg:block">
+							<Button>Login</Button>
+						</div>
+					</Link>
 				</div>
 			</header>
 
