@@ -1,11 +1,12 @@
 "use server";
 
-import { z } from "zod";
+import { object, z } from "zod";
 import { sql } from "@vercel/postgres";
 import { v4 as uuidv4 } from "uuid";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { signIn } from "@/auth";
+import bcrypt from "bcrypt";
 
 const EventSchema = z.object({
 	id: z.string(),
@@ -18,6 +19,14 @@ const EventSchema = z.object({
 	organizer_name: z.string(),
 	category: z.string(),
 	status: z.enum(["upcoming", "ongoing", "expired"]),
+});
+
+const UserDetailsSchema = z.object({
+	id: z.string(),
+	name: z.string(),
+	email: z.string(), // Assuming the description is a string, not a number
+	password: z.string(),
+	role: z.enum(["user", "organizer"]),
 });
 
 const CreateEvent = EventSchema.omit({
@@ -33,6 +42,10 @@ const UpdateEvent = EventSchema.omit({
 	organizer_name: true,
 });
 
+const UserSignup = UserDetailsSchema.omit({
+	id: true,
+});
+
 export async function authenticate(
 	prevState: string | undefined,
 	formData: FormData
@@ -45,6 +58,44 @@ export async function authenticate(
 		}
 		throw error;
 	}
+}
+
+export async function signup(
+	prevState: string | undefined,
+	formData: FormData
+) {
+	// console.log(typeof Object.fromEntries(formData.entries()).username);
+	const details = UserSignup.parse({
+		name: formData.get("username"),
+		email: formData.get("email"),
+		password: formData.get("password"),
+		role: formData.get("role"),
+	});
+	const userId = uuidv4();
+	const hashedPassword = await bcrypt.hash(details.password, 10);
+	try {
+		await sql`INSERT INTO users (
+	    id,
+	    name,
+      email,
+      password,
+      role
+	    )
+	  VALUES (
+	    ${userId},
+	    ${details.name},
+	    ${details.email},
+	    ${hashedPassword},
+	    ${details.role}
+	    )
+      ON CONFLICT (email) DO NOTHING;
+	`;
+		return "SignupSuccessful";
+	} catch (error) {
+		console.log(error);
+		return "SignupFailure";
+	}
+	redirect("/login");
 }
 
 const organizer_id = "3958dc9e-737f-4377-85e9-fec4b6a6442a";

@@ -6,7 +6,7 @@ import { roboto } from "@/app/ui/fonts";
 import { EventsTableSkeleton } from "@/app/ui/skeletons";
 import { fetchActiveEventsPages } from "@/app/lib/data";
 import { Suspense } from "react";
-import getSessionHandler from "next-auth";
+import { auth } from "@/auth";
 
 export default async function Page({
 	searchParams,
@@ -19,7 +19,7 @@ export default async function Page({
 	const query = searchParams?.query || "";
 	const currentPage = Number(searchParams?.page) || 1;
 	const totalPages = await fetchActiveEventsPages(query);
-
+	console.log(auth);
 	return (
 		<div className="w-full">
 			<div className="flex w-full items-center justify-between">

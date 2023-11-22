@@ -8,6 +8,7 @@ import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 import { Button } from "./button";
 import { useFormState, useFormStatus } from "react-dom";
 import { authenticate } from "@/app/lib/actions";
+import Link from "next/link";
 
 export default function LoginForm() {
 	const [state, dispatch] = useFormState(authenticate, undefined);
@@ -58,36 +59,20 @@ export default function LoginForm() {
 						</div>
 					</div>
 				</div>
-				<div className="mt-4">
-					<label className="block text-xs font-medium text-gray-900 mb-2">
-						Role
-					</label>
-					<div className="flex items-center space-x-4">
-						<label htmlFor="user" className="flex items-center">
-							<input
-								type="radio"
-								id="user"
-								name="role"
-								value="user"
-								className="mr-1"
-								// Add required attributes or any other necessary properties
-							/>
-							User
-						</label>
-						<label htmlFor="organizer" className="flex items-center">
-							<input
-								type="radio"
-								id="organizer"
-								name="role"
-								value="organizer"
-								className="mr-1"
-								// Add required attributes or any other necessary properties
-							/>
-							Organizer
-						</label>
+				<div className="flex items-center justify-between">
+					<div className="flex-1">
+						<LoginButton />
+					</div>
+					<div>
+						<Link href="/signup">
+							<Button className="ml-4 mt-8 hover:bg-purple-300 hover:text-purple-900">
+								Signup
+								<DoubleArrowIcon className="ml-2 h-5 w-5 text-gray-50" />
+							</Button>
+						</Link>
 					</div>
 				</div>
-				<LoginButton />
+				{/* <LoginButton /> */}
 				{/* <div className="flex h-4 items-end space-x-1"> */}
 				{/* Add form errors here */}
 				{/* </div> */}
@@ -114,11 +99,11 @@ function LoginButton() {
 	const { pending } = useFormStatus();
 	return (
 		<Button
-			className="mt-8 w-full hover:bg-purple-300 hover:text-purple-900 flex justify-center"
+			className="mt-8 hover:bg-purple-300 hover:text-purple-900 flex justify-center"
 			aria-disabled={pending}
 		>
 			Login
-			<DoubleArrowIcon className="ml-auto h-5 w-5 text-gray-50" />
+			<DoubleArrowIcon className="ml-2 h-5 w-5 text-gray-50" />
 		</Button>
 	);
 }
