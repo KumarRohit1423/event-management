@@ -1,6 +1,6 @@
 # Event Management Website
 
-This project is an Event Management Website built using [Next.js](https://nextjs.org/). It allows organizers to create events and users to register for the events..
+This project is an Event Management Website built using [Next.js](https://nextjs.org/). It allows organizers to create events and users to register for the events.
 
 ## Features
 
@@ -11,17 +11,17 @@ This project is an Event Management Website built using [Next.js](https://nextjs
 
 ## Technologies Used
 
-- **NextJs:** Next.js is a React framework for building full-stack web applications. You use React Components to build user interfaces, and Next.js for additional features and optimizations.
+- **Next.js:** Next.js is a React framework for building full-stack web applications. You use React Components to build user interfaces, and Next.js for additional features and optimizations.
 
 - **TailwindCSS:** A utility-first CSS framework packed with classes like flex, pt-4, text-center and rotate-90 that can be composed to build any design, directly in your markup.
 
-- **PostgreSQL:** PostgreSQL, also known as Postgres, is a free and open-source relational database management system emphasizing extensibility and SQL compliance.
+- **Postgres:** Postgres, is a free and open-source relational database management system emphasizing extensibility and SQL compliance.
 
 - **TypeScript:** TypeScript is a free and open-source high-level programming language developed by Microsoft that adds static typing with optional type annotations to JavaScript.
 
 <p align="center">
   <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=nextjs,tailwind,postgres,ts" />
+    <img alt="icons showing skills" src="https://skillicons.dev/icons?i=nextjs,tailwind,postgres,ts" />
   </a>
 </p>
 
