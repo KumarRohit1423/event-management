@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { UpdateEvent, DeleteEvent } from "@/app/ui/eventInfo/buttons";
 import EventStatus from "@/app/ui/eventInfo/status";
-import { formatDateTimeToLocal } from "@/app/lib/utils";
-import { fetchFilteredActiveEvents } from "@/app/lib/data";
+import { formatDateTimeToLocal } from "@/lib/utils";
+import { fetchFilteredActiveEvents } from "@/lib/data";
 
 export default async function EventsTable({
 	query,

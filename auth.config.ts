@@ -1,21 +1,41 @@
-import type { NextAuthConfig } from "next-auth";
+import Credentials from "@auth/core/providers/credentials";
+import GitHub from "@auth/core/providers/github";
+import Google from "@auth/core/providers/google";
 
-export const authConfig = {
-	pages: {
-		signIn: "/login",
-	},
-	providers: [],
-	callbacks: {
-		authorized({ auth, request: { nextUrl } }) {
-			const isLoggedIn = !!auth?.user;
-			const isOnDashboard = nextUrl.pathname.startsWith("/landing");
-			if (isOnDashboard) {
-				return isLoggedIn;
-				 // Redirect unauthenticated users to login page
-			} else if (isLoggedIn) {
-				return Response.redirect(new URL("/landing", nextUrl));
+import bcrypt from "bcryptjs";
+import type { NextAuthConfig } from "next-auth";
+import {LoginSchema} from "@/schemas";
+import {getUserByEmail} from "@/data/user";
+
+export default {
+	providers: [
+		GitHub({
+			clientId: process.env.GITHUB_CLIENT_ID,
+			clientSecret: process.env.GITHUB_CLIENT_SECRET
+		}),
+		Google({
+			clientId: process.env.GOOGLE_CLIENT_ID,
+			clientSecret: process.env.GOOGLE_CLIENT_SECRET
+		}),
+		Credentials({
+			async authorize(credentials) {
+				const validatedFields = LoginSchema.safeParse(credentials);
+
+				if(validatedFields.success) {
+					const {email, password} = validatedFields.data;
+
+					const user = await getUserByEmail(email);
+					if(!user || !user.password) return null;
+
+					const passwordsMatch = await bcrypt.compare(
+						password,
+						user.password,
+					);
+
+					if(passwordsMatch) return user;
+				}
+				return null;
 			}
-			return true;
-		},
-	}, // Add providers with an empty array for now
+		})
+	]
 } satisfies NextAuthConfig;

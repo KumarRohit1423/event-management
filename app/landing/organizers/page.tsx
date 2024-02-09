@@ -1,7 +1,7 @@
 import Pagination from "@/app/ui/eventInfo/pagination";
 import Search from "@/app/ui/search";
-import Table from "@/app/ui/organizers/table";
-import { roboto, inter } from "@/app/ui/fonts";
+import Table from "@/app/landing/organizers/_components/table";
+import { inter } from "@/lib/fonts";
 import { TableRowSkeleton } from "@/app/ui/skeletons";
 import { Suspense } from "react";
 
@@ -24,7 +24,7 @@ export default async function Page({
 					Organizers
 				</h1>
 				<p
-					className={`${roboto.className} text-base md:text-base antialiased`}
+					className={`${inter.className} text-base md:text-base antialiased`}
 				>
 					[ the people behind all the grandeurs ]
 				</p>

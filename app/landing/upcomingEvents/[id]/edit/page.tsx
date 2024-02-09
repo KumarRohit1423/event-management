@@ -1,6 +1,6 @@
 import Form from "@/app/ui/eventInfo/edit-form";
 import Breadcrumbs from "@/app/ui/eventInfo/breadcrumbs";
-import { fetchEventById /*fetchOrganizers*/ } from "@/app/lib/data";
+import { fetchEventById /*fetchOrganizers*/ } from "@/lib/data";
 import { notFound } from "next/navigation";
 
 export default async function Page({

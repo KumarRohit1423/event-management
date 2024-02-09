@@ -1,10 +1,10 @@
 "use client";
 
-import { OrganizerField } from "@/app/lib/definitions";
+import { OrganizerField } from "@/lib/definitions";
 import Link from "next/link";
 import { Button } from "@/app/ui/button";
 // import { useState, ChangeEvent } from "react";
-import { createEvent } from "@/app/lib/actions";
+import { createEvent } from "@/lib/actions";
 // import Image from "next/image";
 
 export default function Form(/*{

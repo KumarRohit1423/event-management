@@ -1,22 +1,31 @@
 import type { Metadata } from "next";
-import { roboto } from "@/app/ui/fonts";
+import React from "react";
+import { inter } from "@/lib/fonts";
 import "@/app/ui/global.css";
+import { Toaster } from "@/components/ui/sonner";
+import { SessionProvider } from "next-auth/react";
+import { auth } from "@/auth";
+import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-	title: "Organizzer",
+	title: "Organizer",
 	description: "Next generation Event Management Platform",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
 	children,
 }: {
 	children: React.ReactNode;
 }) {
+	const session = await auth();
 	return (
-		<html lang="en">
-			<body className={`${roboto.className} antialiased`}>
-				{children}
-			</body>
-		</html>
+		<SessionProvider session={session}>
+			<html lang="en">
+				<body className={cn("h-screen", inter.className)}>
+					<Toaster />
+					{children}
+				</body>
+			</html>
+		</SessionProvider>
 	);
 }

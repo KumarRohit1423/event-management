@@ -1,4 +1,4 @@
-import { roboto } from "@/app/ui/fonts";
+import { inter } from "@/lib/fonts";
 import EventStatus from "@/app/ui/eventInfo/status";
 import Image from "next/image";
 import { Button } from "@/app/ui/button";
@@ -9,7 +9,7 @@ import TechnologyGif from "@/public/eventCategory/technology-event.gif";
 import CulturalGif from "@/public/eventCategory/cultural-event.gif";
 import SocialGif from "@/public/eventCategory/social-event.gif";
 import SportsGif from "@/public/eventCategory/sports-event.gif";
-import { fetchLatestEvents } from "@/app/lib/data";
+import { fetchLatestEvents } from "@/lib/data";
 
 const eventBannerMap = {
 	academic: AcademicGif,

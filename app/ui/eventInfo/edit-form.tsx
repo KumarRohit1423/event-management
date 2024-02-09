@@ -1,10 +1,12 @@
 "use client";
 
-import { splitISO8601DateTime } from "@/app/lib/utils";
-import { /*OrganizerField,*/ EventForm } from "@/app/lib/definitions";
+import { splitISO8601DateTime } from "@/lib/utils";
+import {
+	/*OrganizerField,*/ EventForm,
+} from "@/lib/definitions";
 import Link from "next/link";
 import { Button } from "@/app/ui/button";
-import { updateEvent } from "@/app/lib/actions";
+import { updateEvent } from "@/lib/actions";
 // import { useState, ChangeEvent } from "react";
 // import Image from "next/image";
 

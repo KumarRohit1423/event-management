@@ -1,8 +1,8 @@
-import { roboto } from "@/app/ui/fonts";
+import { inter } from "@/lib/fonts";
 
 export default function Page() {
 	return (
-		<h1 className={`${roboto.className} text-xl antialiased`}>
+		<h1 className={`${inter.className} text-xl antialiased`}>
 			View Event
 		</h1>
 	);

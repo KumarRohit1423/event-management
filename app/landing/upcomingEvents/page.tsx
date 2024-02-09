@@ -2,9 +2,9 @@ import Pagination from "@/app/ui/eventInfo/pagination";
 import Search from "@/app/ui/search";
 import Table from "@/app/ui/eventInfo/table";
 import { CreateEvent } from "@/app/ui/eventInfo/buttons";
-import { roboto } from "@/app/ui/fonts";
+import { inter } from "@/lib/fonts";
 import { EventsTableSkeleton } from "@/app/ui/skeletons";
-import { fetchActiveEventsPages } from "@/app/lib/data";
+import { fetchActiveEventsPages } from "@/lib/data";
 import { Suspense } from "react";
 import { auth } from "@/auth";
 
@@ -23,7 +23,7 @@ export default async function Page({
 	return (
 		<div className="w-full">
 			<div className="flex w-full items-center justify-between">
-				<h1 className={`${roboto.className} text-2xl`}>
+				<h1 className={`${inter.className} text-2xl`}>
 					Upcoming Events
 				</h1>
 			</div>

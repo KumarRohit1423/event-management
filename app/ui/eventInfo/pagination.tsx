@@ -5,7 +5,7 @@ import ArrowRightOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined"
 import clsx from "clsx";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
-import { generatePagination } from "@/app/lib/utils";
+import { generatePagination } from "@/lib/utils";
 
 export default function Pagination({
 	totalPages,
