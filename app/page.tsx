@@ -20,7 +20,7 @@ export default function Home() {
 				>
 					Organizer
 				</h1>
-				<p className="text-gray-900">
+				<p className="text-gray-900 text-center">
 					Create and manage unforgettable events effortlessly.
 				</p>
 				<div className="hidden p-6 md:inline-block">
