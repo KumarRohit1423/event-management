@@ -7,9 +7,9 @@ import bcrypt from "bcryptjs";
 import { SettingsSchema } from "@/schemas";
 import { getUserByEmail, getUserById } from "@/data/user";
 import { currentUser } from "@/lib/auth";
-import { get } from "http";
 import { generateVerificationToken } from "@/lib/tokens";
 import { sendVerificationEmail } from "@/lib/mail";
+import { revalidatePath } from "next/cache";
 
 export const settings = async (
 	values: z.infer<typeof SettingsSchema>
@@ -72,7 +72,7 @@ export const settings = async (
 			...values,
 		},
 	});
-
+	revalidatePath("/profile");
 	return {
 		success: "Settings updated successfully",
 	};

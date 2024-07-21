@@ -17,36 +17,31 @@ export const Social = () => {
 	};
 
 	return (
-		<div className="flex flex-grow flex-col gap-4">
-			<div className="relative">
-				<div className="absolute inset-0 flex items-center">
-					<span className="w-full border-t" />
-				</div>
-				<div className="relative flex justify-center text-xs uppercase">
-					<span className="bg-background px-2 text-muted-foreground">
-						Or continue with
-					</span>
-				</div>
-			</div>
-			<div className="flex items-center w-full gap-x-4">
+		<div className="flex flex-col gap-4">
+			<div className="flex items-center justify-center w-full gap-x-8">
 				<Button
 					size="lg"
-					className="w-full gap-x-2"
+					className="w-auto gap-x-4"
 					variant="outline"
 					onClick={() => onClick("google")}
 				>
-					<FcGoogle />
-					Google
+					<FcGoogle className="size-4" />
+					<p className="text-muted-foreground">Google</p>
 				</Button>
 				<Button
 					size="lg"
-					className="w-full gap-x-2"
+					className="w-auto gap-x-4"
 					variant="outline"
 					onClick={() => onClick("github")}
 				>
-					<FaGithub />
-					Github
+					<FaGithub className="size-4" />
+					<p className="text-muted-foreground">GitHub</p>
 				</Button>
+			</div>
+			<div className="flex items-center justify-center">
+				<div className="w-full border-t-2 px-2"></div>
+				<p className="text-muted-foreground px-4">or</p>
+				<div className="w-full border-t-2 px-2"></div>
 			</div>
 		</div>
 	);

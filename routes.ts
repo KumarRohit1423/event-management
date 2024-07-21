@@ -1,4 +1,4 @@
-export const publicRoutes = [
+export const publicRoutes: string[] = [
 	"/",
 	"/auth/new-verification",
 	"/about",
@@ -6,7 +6,7 @@ export const publicRoutes = [
 	"/contact",
 ];
 
-export const authRoutes = [
+export const authRoutes: string[] = [
 	"/auth/login",
 	"/auth/register",
 	"/auth/error",
@@ -14,6 +14,6 @@ export const authRoutes = [
 	"/auth/new-password",
 ];
 
-export const apiAuthPrefix = "/api/auth";
+export const apiAuthPrefix: string = "/api/auth";
 
-export const DEFAULT_LOGIN_REDIRECT = "/profile";
+export const DEFAULT_LOGIN_REDIRECT: string = "/profile";

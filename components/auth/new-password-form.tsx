@@ -42,7 +42,9 @@ export const NewPasswordForm = () => {
 	const togglePasswordVisibility = () => {
 		setShowPassword(!showPassword);
 	};
-	const onSubmit = (values: z.infer<typeof NewPassowrdSchema>) => {
+	const onSubmit = (
+		values: z.infer<typeof NewPassowrdSchema>
+	): void => {
 		setError("");
 		setSuccess("");
 		startTransition(() => {

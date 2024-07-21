@@ -1,12 +1,10 @@
 import NextAuth from "next-auth";
-import authConfig from "@/auth.config";
-import { PrismaAdapter } from "@auth/prisma-adapter";
-
-import { getUserById } from "@/data/user";
 import { db } from "@/lib/db";
 import { UserRole } from "@prisma/client";
+import { getUserById } from "@/data/user";
 import { getTwoFactorConfirmationByUserId } from "@/data/two-factor-confirmation";
-import { getAccountByUserId } from "./data/account";
+import { getAccountByUserId } from "@/data/account";
+import authConfig from "@/auth.config";
 
 export const {
 	handlers: { GET, POST },
@@ -54,7 +52,7 @@ export const {
 				session.user.isTwoFactorEnabled =
 					token.isTwoFactorEnabled as boolean;
 			}
-			if (session.user) {
+			if (session.user && token.email) {
 				session.user.name = token.name;
 				session.user.email = token.email;
 				session.user.isOAuth = token.isOAuth as boolean;
@@ -76,7 +74,6 @@ export const {
 			return token;
 		},
 	},
-	adapter: PrismaAdapter(db),
 	session: { strategy: "jwt" },
 	...authConfig,
 });

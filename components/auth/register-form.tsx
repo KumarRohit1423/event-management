@@ -59,14 +59,15 @@ export const RegisterForm = () => {
 	return (
 		<CardWrapper
 			headerLabel="Create an Account"
-			backButtonLabel="Already registered. Login to continue.."
+			backButtonText="Already have an account?"
+			backButtonLabel="Sign In.."
 			backButtonHref="/auth/login"
 			showSocial
 		>
 			<Form {...form}>
 				<form
 					onSubmit={form.handleSubmit(onSubmit)}
-					className="space-y-6"
+					className="space-y-4"
 				>
 					<div className="space-y-4">
 						<FormField
@@ -144,12 +145,14 @@ export const RegisterForm = () => {
 											</div>
 										</div>
 									</FormControl>
-									{/*<FormDescription>Enter your password here</FormDescription>*/}
+									{/* <FormDescription>
+										Enter your password here
+									</FormDescription> */}
 									<FormMessage />
 								</FormItem>
 							)}
 						/>
-						<FormField
+						{/* <FormField
 							name="passwordConfirm"
 							control={form.control}
 							render={({ field }) => (
@@ -184,11 +187,10 @@ export const RegisterForm = () => {
 											</div>
 										</div>
 									</FormControl>
-									{/*<FormDescription>Confirm your password here</FormDescription>*/}
 									<FormMessage />
 								</FormItem>
 							)}
-						/>
+						/> */}
 						<FormField
 							name="role"
 							control={form.control}
@@ -223,7 +225,9 @@ export const RegisterForm = () => {
 											</FormItem>
 										</RadioGroup>
 									</FormControl>
-									{/*<FormDescription>Enter your name here</FormDescription>*/}
+									{/* <FormDescription>
+										Enter your name here
+									</FormDescription> */}
 									<FormMessage />
 								</FormItem>
 							)}

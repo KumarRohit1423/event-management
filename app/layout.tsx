@@ -21,7 +21,12 @@ export default async function RootLayout({
 	return (
 		<SessionProvider session={session}>
 			<html lang="en">
-				<body className={cn("h-screen", inter.className)}>
+				<body
+					className={cn(
+						"min-h-screen bg-gray-100 flex items-center justify-center",
+						inter.className
+					)}
+				>
 					<Toaster />
 					{children}
 				</body>

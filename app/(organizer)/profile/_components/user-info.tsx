@@ -1,6 +1,6 @@
 "use client";
 
-import { ExtendedUser } from "@/next-auth";
+import { ExtendedUser } from "@/types/next-auth";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { inter } from "@/lib/fonts";
 import { cn } from "@/lib/utils";

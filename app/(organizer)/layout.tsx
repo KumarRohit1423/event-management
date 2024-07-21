@@ -6,9 +6,9 @@ export default async function ProtectedLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<div className="h-screen flex flex-col gap-2 bg-primary-foreground">
+		<div className="w-full flex flex-col gap-2 bg-primary-foreground">
 			<Navbar />
-			<div className="p-4">{children}</div>
+			<div className="h-screen p-4">{children}</div>
 		</div>
 	);
 }

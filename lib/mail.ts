@@ -21,7 +21,7 @@ export const sendForgotPasswordEmail = async (
 	email: string,
 	token: string
 ) => {
-	const forgotPasswordLink = `${domain}/auth/new-password?token=${token}`;
+	const forgotPasswordLink = `${domain}/new-password?token=${token}`;
 	await resend.emails.send({
 		from: "Organizer <organizerproject@resend.dev>",
 		to: email,
@@ -38,7 +38,7 @@ export const sendVerificationEmail = async (
 	email: string,
 	token: string
 ) => {
-	const confirmLink = `${domain}/auth/new-verification?token=${token}`;
+	const confirmLink = `${domain}/new-verification?token=${token}`;
 
 	await resend.emails.send({
 		from: "Organizer <organizerproject@resend.dev>",
