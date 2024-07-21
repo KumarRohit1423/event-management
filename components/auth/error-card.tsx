@@ -4,9 +4,10 @@ import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 export const ErrorCard = () => {
 	return (
 		<CardWrapper
+			backButtonText="Back to Login"
 			headerLabel="Looks like Something went wrong!"
 			backButtonHref="/auth/login"
-			backButtonLabel="Back to login"
+			backButtonLabel="Sign in"
 		>
 			<div className="w-full flex justify-center items-center">
 				<ExclamationTriangleIcon className="text-destructive" />

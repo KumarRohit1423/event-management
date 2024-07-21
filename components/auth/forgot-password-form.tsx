@@ -46,8 +46,9 @@ export const ForgotPasswordForm = () => {
 	};
 	return (
 		<CardWrapper
+			backButtonText="Back to login"
 			headerLabel="Forgot your Password?"
-			backButtonLabel="Back to login"
+			backButtonLabel="Sign in"
 			backButtonHref="/auth/login"
 		>
 			<Form {...form}>

@@ -38,8 +38,9 @@ export const NewVerificationForm = () => {
 	return (
 		<CardWrapper
 			headerLabel="Confirming your email address"
+			backButtonText="Back to Login"
 			backButtonHref="/auth/login"
-			backButtonLabel="Back to Login"
+			backButtonLabel="Sign in"
 		>
 			<div className="flex items-center w-full justify-center">
 				<HashLoader loading={!success && !error} />

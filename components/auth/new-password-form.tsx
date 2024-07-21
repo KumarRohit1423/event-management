@@ -57,8 +57,9 @@ export const NewPasswordForm = () => {
 	};
 	return (
 		<CardWrapper
+			backButtonText="Back to login"
 			headerLabel="Enter your new Password"
-			backButtonLabel="Back to login"
+			backButtonLabel="Sign in"
 			backButtonHref="/auth/login"
 		>
 			<Form {...form}>
