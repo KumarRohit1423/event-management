@@ -30,7 +30,7 @@ export const sendForgotPasswordEmail = async (
 			subjectLabel: "Reset your password",
 			requiredLink: forgotPasswordLink,
 			taskLabel: "Password Reset",
-		}) as React.ReactElement,
+		}) as React.ReactElement<any>,
 	});
 };
 
@@ -48,6 +48,6 @@ export const sendVerificationEmail = async (
 			subjectLabel: "Confirm your Account",
 			requiredLink: confirmLink,
 			taskLabel: "Account Confirmation",
-		}) as React.ReactElement,
+		}) as React.ReactElement<any>,
 	});
 };

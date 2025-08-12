@@ -7,7 +7,6 @@ import { db } from "@/lib/db";
 import { getUserByEmail } from "@/data/user";
 import { generateVerificationToken } from "@/lib/tokens";
 import { sendVerificationEmail } from "@/lib/mail";
-import { redirect } from "next/navigation";
 
 export const register = async (
 	values: z.infer<typeof RegisterSchema>
@@ -21,7 +20,7 @@ export const register = async (
 	}
 
 	const { email, name, password, role } = validatedFields.data;
-	const hashedPassword = await bcrypt.hash(password, 10);
+	const hashedPassword = bcrypt.hash(password, 10);
 	const existingUser = await getUserByEmail(email);
 
 	if (existingUser) {

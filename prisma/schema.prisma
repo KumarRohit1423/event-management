@@ -1,14 +1,17 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
 generator client {
   provider = "prisma-client-js"
+  output   = "../generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("POSTGRES_PRISMA_URL") // uses connection pooling
-  // directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+  url      = env("DATABASE_URL")
 }
 
 enum UserRole {
@@ -31,7 +34,12 @@ model User {
   participatedEvents    Event[]                @relation("participatedEvents")
   Registration          Registration[]
 
+  createdAt DateTime
+  updatedAt DateTime
+  sessions  Session[]
+
   @@index([email])
+  @@map("user")
 }
 
 model Account {
@@ -50,7 +58,19 @@ model Account {
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  accountId             String
+  providerId            String
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  password              String?
+  createdAt             DateTime
+  updatedAt             DateTime
+
   @@unique([provider, providerAccountId])
+  @@map("account")
 }
 
 model Event {
@@ -138,4 +158,30 @@ model TwoFactorConfirmation {
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId])
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String
+  createdAt DateTime
+  updatedAt DateTime
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([token])
+  @@map("session")
+}
+
+model Verification {
+  id         String    @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime?
+  updatedAt  DateTime?
+
+  @@map("verification")
 }
