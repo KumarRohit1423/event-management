@@ -19,12 +19,6 @@ This project is an Event Management Website built using [Next.js](https://nextjs
 
 - **TypeScript:** TypeScript is a free and open-source high-level programming language developed by Microsoft that adds static typing with optional type annotations to JavaScript.
 
-<p align="center">
-  <a href="https://skillicons.dev">
-    <img alt="icons showing skills" src="https://skillicons.dev/icons?i=nextjs,tailwind,postgres,ts" />
-  </a>
-</p>
-
 ## Installation
 
 1. Clone the repository.
